@@ -6,9 +6,8 @@ import re
 
 
 if __name__ == "__main__":
-    print("hello world")
 
-    df = pd.read_excel("C:/Users/weidikkai01/Downloads/accountMessage.xlsx")
+    df = pd.read_excel("./accountMessage.xlsx")
     df.drop("\t", axis=1, inplace=True)
 
     df[df == "-"] = np.nan
