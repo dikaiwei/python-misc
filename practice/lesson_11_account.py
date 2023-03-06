@@ -19,13 +19,14 @@ if __name__ == "__main__":
 
     rows_with_pound = df["weight"].str.contains("lbs").fillna(False)
     df.loc[rows_with_pound, "weight"] = df.loc[rows_with_pound, "weight"].apply(lambda x: round(float(x[:-3])/2.2, 0))
-    df.loc[(~rows_with_pound) & (df["weight"].notnull()), "weight"] = df.loc[(~rows_with_pound) & (df["weight"].notnull()), "weight"].\
+    df.loc[(~rows_with_pound) & (df["weight"].notnull()), "weight"] = \
+        df.loc[(~rows_with_pound) & (df["weight"].notnull()), "weight"].\
         apply(lambda x: float(re.sub("kgs", "", str(x))))
 
     df.loc[df["m_breast"].notnull(), "sex"] = "male"
     df.loc[df["f_breast"].notnull(), "sex"] = "female"
 
-    df["age"].fillna(round(df["age"].mean(),0), inplace=True)
+    df["age"].fillna(round(df["age"].mean(), 0), inplace=True)
     for col in ("weight", "f_waist"):
         df.loc[(df["sex"] == "female") & (df[col].isnull()), col] = round(df.loc[(df["sex"] == "female"), col].mean(), 0)
 
